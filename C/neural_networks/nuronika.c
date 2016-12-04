@@ -1,4 +1,3 @@
-
 #include <stdio.h>
 #include <stdlib.h>
 #include <math.h>
@@ -42,13 +41,14 @@ int main(void) {
 	FILE *fp;
 	int key;
 	//this is the iput and output layer and the hiddens
-	neurons N[layers+2];
-
-
-
-
+	//neurons N[layers+2];
+        
+      
 	ConstructTrSet();
+   
+        //something like debugging
 printf("%d",numOfInVectors);
+
 
 
 	return EXIT_SUCCESS;
@@ -58,10 +58,7 @@ void ConstructTrSet(){
 int n,i;
 		printf("How many dimensions is your target vector?\n");
 		scanf("%d",&numOfDimensions);
-		// this is a pow function
-		i=0;
-		for(i=0;i<numOfDimensions;i++)
-			numOfInVectors*=2;
+		numOfInVectors=pow(2,numOfDimensions);
 
 
 		printf("How many hidden Layers do you want?\n");
@@ -70,6 +67,10 @@ int n,i;
 
 
 		//setting zero values to the output of matrix targetSet[]
+                targetSet=malloc(numOfInVectors*sizeof(int*));
+                for(i=0;i<numOfInVectors;i++)
+                targetSet[i]=malloc(numOfOutputs*sizeof(int));
+                
 		i=0;
 		n=0;
 		for(n=0;n<numOfInVectors;n++)
@@ -78,11 +79,18 @@ int n,i;
 
 
 		//trainning set
-		/*printf("Please give the trainning set\n");
+                trSet=malloc(numOfInVectors*sizeof(float*));
+                for(i=0;i<numOfDimensions;i++)
+                    trSet[i]=malloc(numOfDimensions*sizeof(float));
+                
+                
+                i=0;n=0;
+                
+		printf("Please give the trainning set\n");
 			for(n=0;n<numOfInVectors;n++)
 				for(i=0;i<numOfDimensions;i++){
-				scanf("%d",&trSet[n][i]);
-				}*/
+				scanf("%f",&trSet[n][i]);
+				}
 
 
 
@@ -98,3 +106,5 @@ float Sigmoid(float x){
 		return 1/(1+exp(690));
 
 }
+
+
