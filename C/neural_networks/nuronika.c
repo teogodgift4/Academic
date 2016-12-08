@@ -2,11 +2,11 @@
 #include <stdlib.h>
 #include <math.h>
 
-float **trSet;
-int **targetSet;
+float *trSet;
+int *targetSet;
 int numOfDimensions;
 int numOfInVectors=1;
-int numOfOutputs=2;
+int numOfOutputs=1;
 float input[];
 float target[];
 float trn=0.25;
@@ -59,44 +59,37 @@ int n,i;
 		printf("How many dimensions is your target vector?\n");
 		scanf("%d",&numOfDimensions);
 		numOfInVectors=pow(2,numOfDimensions);
+                printf("Input Vectors: %d and Dimensions of each one: %d\n",numOfInVectors,numOfDimensions);
 
 
 		printf("How many hidden Layers do you want?\n");
 		scanf("%d",&layers);
+                printf("You choose %d layers\n",layers);
 
 
-
+                //the 2D array is a simple 1D array now!!!
 		//setting zero values to the output of matrix targetSet[]
-                targetSet=malloc(numOfInVectors*sizeof(int*));
-                for(i=0;i<numOfInVectors;i++)
-                targetSet[i]=malloc(numOfOutputs*sizeof(int));
-                
-		i=0;
-		n=0;
-		for(n=0;n<numOfInVectors;n++)
-			for(i=0;i<numOfOutputs;i++)
-		targetSet[n][i]=0;
+                targetSet=malloc(numOfInVectors*numOfOutputs*sizeof(int*));
+                for(i=0;i<numOfInVectors*numOfOutputs;i++)
+		targetSet[i]=0;
+               
 
 
 		//trainning set
-                trSet=malloc(numOfInVectors*sizeof(float*));
-                for(i=0;i<numOfDimensions;i++)
-                    trSet[i]=malloc(numOfDimensions*sizeof(float));
-                
-                
-                i=0;n=0;
-                
+                //the 2D array is a simple 1D array now!!!
+                trSet=malloc(numOfInVectors*numOfDimensions*sizeof(float));
 		printf("Please give the trainning set\n");
-			for(n=0;n<numOfInVectors;n++)
-				for(i=0;i<numOfDimensions;i++){
-				scanf("%f",&trSet[n][i]);
+                for(i=0;i<numOfInVectors*numOfDimensions;i++){
+                    printf("trSet[%d]",i);
+				scanf("%f",&trSet[i]);
 				}
-
+                        
 
 
 //desired output
 printf("Give the desired output for each vector\n");
 for(n=0;n<numOfInVectors;n++)
+    printf("vector %d:\n");
 			scanf("%d",&target[n]);
 }
 
@@ -106,5 +99,4 @@ float Sigmoid(float x){
 		return 1/(1+exp(690));
 
 }
-
 
